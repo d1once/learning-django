@@ -1,5 +1,6 @@
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
+from django.shortcuts import render
 
 monthly_challenges_dict = {
     "january": "Start the gym 🦾",
@@ -13,22 +14,18 @@ monthly_challenges_dict = {
     "september": "Start the gym 🦾",
     "october": "Push it to the limits 🦍",
     "november": "Fighting 'til I'm dead 💀, I eat 'til I'm fed 🤤🍖🍚",
-    "december": "And then I'll do it all again ♻",
+    "december": None,
 }
 
 # Create your views here.
 
 
 def index(request):
-    list_items = ""
     months = list(monthly_challenges_dict.keys())
 
-    for month in months:
-        month_path = reverse("month-challenges", args=[month])
-        list_items += f"<li><a href='{month_path}'>{month.capitalize()}</a></li>"
-
-    response_data = f"<ul>{list_items}</ul>"
-    return HttpResponse(response_data)
+    return render(request, "challenges/index.html", {
+        "months": months
+    })
 
 
 def monthly_challenges_by_number(request, month):
@@ -46,6 +43,9 @@ def monthly_challenges_by_number(request, month):
 def monthly_challenges(request, month):
     try:
         challenge_text = monthly_challenges_dict[month]
-        return HttpResponse(challenge_text)
+        return render(request, "challenges/challenge.html", {
+            "text": challenge_text,
+            "month": month.capitalize()
+        })
     except:
         return HttpResponseNotFound("Maybe in your univers that might be a month! 👾👽")
