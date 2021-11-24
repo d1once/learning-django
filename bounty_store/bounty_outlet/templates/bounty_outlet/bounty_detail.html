@@ -1,0 +1,19 @@
+{% extends "bounty_outlet/base.html" %}
+
+{% block title %}
+  Bounty Details
+{% endblock %}  
+
+{% block content %}
+  <h1>{{ name }}</h1>
+  <h2>{{ benefactor }}</h2>
+  <p>This bounty has a reward of {{ reward }}
+
+    {% if deadoralive %}
+      and is wanted deadoralive
+    {% else %}
+      and is wanted only alive.
+    {% endif %}
+    
+  </p>
+{% endblock %}

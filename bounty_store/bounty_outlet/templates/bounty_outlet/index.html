@@ -1,0 +1,13 @@
+{% extends "bounty_outlet/base.html" %}
+
+{% block title %}
+  All Bounties
+{% endblock %}
+
+{% block content %}
+  <ul>
+    {% for bounty in all_bounties %}
+      <li><a href="{{ bounty.get_absolute_url }}">{{ bounty.name }}</a> -> Reward: (${{ bounty.reward }})</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
