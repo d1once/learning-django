@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Bounty
+from .models import Bounty, Benefactor, Address, State
 
 # Register your models here.
 
@@ -11,3 +11,6 @@ class BountyAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Bounty, BountyAdmin)
+admin.site.register(Benefactor)
+admin.site.register(Address)
+admin.site.register(State)
