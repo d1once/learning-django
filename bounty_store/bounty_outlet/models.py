@@ -13,14 +13,10 @@ class Bounty(models.Model):
         validators=[MinValueValidator(100), MaxValueValidator(1000)])
     benefactor = models.CharField(max_length=30, null=True)
     deadoralive = models.BooleanField(default=True)
-    slug = models.SlugField(default="", null=False, db_index=True)
+    slug = models.SlugField(default="", blank=True, null=False, db_index=True)
 
     def get_absolute_url(self):
         return reverse("bounty-detail", args=[self.slug])
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
 
     def __str__(self) -> str:
         return f"{self.name} {self.benefactor} {self.deadoralive} ({self.reward})"
